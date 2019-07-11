@@ -36,7 +36,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/people/{id}")
-    public Person updatePerson(@RequestBody Person p, @PathVariable int id){
+    public Person updatePerson(Person p, @PathVariable int id){
         Person old = getPerson(id);
         old.setFirstName(p.getFirstName());
         old.setLastName(p.getLastName());
