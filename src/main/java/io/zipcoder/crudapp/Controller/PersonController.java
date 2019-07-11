@@ -5,6 +5,7 @@ import io.zipcoder.crudapp.Repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -28,12 +29,21 @@ public class PersonController {
     @GetMapping(value = "/people")
     public Iterable<Person> getPersonList(){
 
+        //ist<Person> personList = personRepository.findAll();
+
+
         return this.personRepository.findAll();
     }
 
-    @PutMapping(value = "/people")
-    public Person updatePerson(@RequestBody Person p){
-        return this.personRepository.save(p);
+    @PutMapping(value = "/people/{id}")
+    public Person updatePerson(@RequestBody Person p, @PathVariable int id){
+        Person old = getPerson(id);
+        old.setFirstName(p.getFirstName());
+        old.setLastName(p.getLastName());
+
+
+
+        return this.personRepository.save(old);
     }
 
     @DeleteMapping(value = "/people/{id}")
