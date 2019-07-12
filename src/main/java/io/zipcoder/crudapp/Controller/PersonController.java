@@ -30,18 +30,20 @@ public class PersonController {
     public Iterable<Person> getPersonList(){
 
         //ist<Person> personList = personRepository.findAll();
-
+        try {
+            System.out.println("test");
+        }catch (Exception e){
+            System.out.println(e);
+        }
 
         return this.personRepository.findAll();
     }
 
     @PutMapping(value = "/people/{id}")
-    public Person updatePerson(Person p, @PathVariable int id){
+    public Person updatePerson(@RequestBody Person p, @PathVariable int id){
         Person old = getPerson(id);
         old.setFirstName(p.getFirstName());
         old.setLastName(p.getLastName());
-
-
 
         return this.personRepository.save(old);
     }
